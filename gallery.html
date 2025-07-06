@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Gallery</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
 </head>
 <body>
@@ -11,23 +11,22 @@
     <nav>
       <a href="index.html">Home</a>
       <a href="gallery.html">Gallery</a>
-      <a href="shop.html">Shop</a>
+      <a href="store.html">Store</a>
       <a href="contact.html">Contact</a>
     </nav>
   </header>
   <main>
-    <h2>Photo Gallery</h2>
+    <h2>Gallery</h2>
     <div id="tagFilter">
       <button data-tag="all">All</button>
-      <button data-tag="portraits">Portraits</button>
-      <button data-tag="street">Street</button>
-      <button data-tag="nature">Nature</button>
+      <button data-tag="analog">Analog</button>
+      <button data-tag="digital">Digital</button>
     </div>
     <div id="gallery" class="gallery" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
   </main>
   <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
   <script src="galleryData.js"></script>
   <script src="scripts.js"></script>
-  <footer><p>&copy; 2025 Ash Tower</p></footer>
+  <footer>&copy; 2025 Ash Tower</footer>
 </body>
 </html>

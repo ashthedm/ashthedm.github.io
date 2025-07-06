@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Store</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="store.html">Store</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+  <main>
+    <h2>Shop Prints</h2>
+    <div id="store" class="store"></div>
+  </main>
+  <script src="store/storeData.js"></script>
+  <script>
+    const container = document.getElementById("store");
+    storeItems.forEach(item => {
+      const div = document.createElement("div");
+      div.className = "store-item";
+      div.innerHTML = `
+        <img src="${item.image}" alt="${item.title}" />
+        <h3>${item.title}</h3>
+        <p>${item.description}</p>
+        <strong>$${item.price}</strong><br>
+        <a href="${item.buyLink}" target="_blank">Buy on Payhip</a>
+      `;
+      container.appendChild(div);
+    });
+  </script>
+  <footer>&copy; 2025 Ash Tower</footer>
+</body>
+</html>

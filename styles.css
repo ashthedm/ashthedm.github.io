@@ -2,41 +2,34 @@ body {
   font-family: sans-serif;
   margin: 0;
   padding: 0;
-  background: #fff;
-  color: #222;
 }
-header {
-  background: #111;
-  color: white;
+header, footer {
+  background: #222;
+  color: #fff;
   padding: 1rem;
   text-align: center;
 }
 nav a {
-  color: white;
   margin: 0 10px;
+  color: #fff;
   text-decoration: none;
 }
 main {
   padding: 2rem;
 }
-.gallery {
+.gallery, .store {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
-.gallery-item {
+.gallery-item, .store-item {
   width: 200px;
-  border: 2px dashed transparent;
 }
-.gallery-item img {
+.gallery-item img, .store-item img {
   width: 100%;
-  height: auto;
-  cursor: grab;
 }
-#tagFilter {
-  margin-bottom: 1em;
-}
-#tagFilter button {
-  margin-right: 5px;
-  padding: 0.5em;
+form input, form textarea {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
 }
