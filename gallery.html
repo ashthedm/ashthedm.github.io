@@ -1,33 +1,53 @@
 
+  
   <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Gallery</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+  <style>
+    body { font-family: sans-serif; padding: 2em; }
+    nav a { margin-right: 1em; text-decoration: none; color: blue; font-weight: bold; }
+    .gallery { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px; }
+    .gallery img { width: 200px; border-radius: 8px; cursor: pointer; }
+    .section-title { font-size: 22px; margin-top: 30px; margin-bottom: 5px; }
+  </style>
 </head>
 <body>
-  <header>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="store.html">Store</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-  </header>
-  <main>
-    <h2>Gallery</h2>
-    <div id="tagFilter">
-      <button data-tag="all">All</button>
-      <button data-tag="analog">Analog</button>
-      <button data-tag="digital">Digital</button>
-    </div>
-    <div id="gallery" class="gallery" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-  </main>
-  <script src="loadGallery.js"></script>
-  <script src="scripts.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-  <footer>&copy; 2025 Ash Tower</footer>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="gallery.html">Gallery</a>
+  </nav>
+
+  <h1>Photo Gallery</h1>
+
+  <div class="section-title">Analog</div>
+  <div class="gallery" id="analogGallery"></div>
+
+  <div class="section-title">Digital</div>
+  <div class="gallery" id="digitalGallery"></div>
+
+  <script>
+    fetch('storeData.json')
+      .then(response => response.json())
+      .then(data => {
+        const analogGallery = document.getElementById('analogGallery');
+        const digitalGallery = document.getElementById('digitalGallery');
+
+        data.forEach(item => {
+          const img = document.createElement('img');
+          img.src = item.path;
+          img.alt = item.title || 'Untitled';
+
+          if (item.category === 'analog') {
+            analogGallery.appendChild(img);
+          } else if (item.category === 'digital') {
+            digitalGallery.appendChild(img);
+          }
+        });
+      });
+  </script>
+
 </body>
 </html>
