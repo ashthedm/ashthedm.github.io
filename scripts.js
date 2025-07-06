@@ -1,3 +1,7 @@
+
+    let currentTag = 'all';
+let glightbox;
+
 function allowDrop(ev) { ev.preventDefault(); }
 function drag(ev) { ev.dataTransfer.setData("text", ev.target.id); }
 function drop(ev) {
@@ -9,10 +13,15 @@ function drop(ev) {
     dropTarget.parentNode.insertBefore(draggedEl, dropTarget);
   }
 }
-function renderGallery(tag = 'all') {
+
+async function renderGallery(tag = 'all') {
   const gallery = document.getElementById("gallery");
   gallery.innerHTML = "";
+
+  const imageData = await loadGalleryData();
+
   let tagged = imageData.map((img, i) => ({ ...img, id: `img-${i}` }));
+
   tagged.forEach((img) => {
     if (tag === 'all' || img.tags.includes(tag)) {
       const div = document.createElement("div");
@@ -24,10 +33,14 @@ function renderGallery(tag = 'all') {
       gallery.appendChild(div);
     }
   });
-  GLightbox({ selector: '.glightbox' });
+
+  if (glightbox) glightbox.destroy();
+  glightbox = GLightbox({ selector: '.glightbox' });
 }
+
 document.addEventListener("DOMContentLoaded", () => {
   renderGallery();
   document.querySelectorAll("#tagFilter button").forEach(btn =>
-    btn.addEventListener("click", () => renderGallery(btn.dataset.tag)));
+    btn.addEventListener("click", () => renderGallery(btn.dataset.tag))
+  );
 });
