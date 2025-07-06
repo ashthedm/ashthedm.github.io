@@ -1,0 +1,16 @@
+const storeItems = [
+  {
+    title: "Analog Street Shot",
+    description: "Shot on HP5, handmade print.",
+    image: "images/analog/analog_photo1.jpg",
+    price: "15.00",
+    buyLink: "https://payhip.com/b/yourcode1"
+  },
+  {
+    title: "Digital Sunrise",
+    description: "Shot on Canon, matte print.",
+    image: "images/digital/digital_photo1.jpg",
+    price: "12.00",
+    buyLink: "https://payhip.com/b/yourcode2"
+  }
+];
