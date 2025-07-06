@@ -3,122 +3,45 @@ body {
   font-family: sans-serif;
   margin: 0;
   padding: 0;
-  background: #fefefe;
-  color: #111;
 }
-
-header {
-  padding: 1em;
+header, footer {
+  background: #222;
+  color: #fff;
+  padding: 1rem;
   text-align: center;
-  background: #eee;
 }
-
-.status {
-  font-weight: bold;
-  color: green;
+nav a {
+  margin: 0 10px;
+  color: #fff;
+  text-decoration: none;
 }
-
 main {
-  padding: 1em;
+  padding: 2rem;
 }
-
-.category {
-  margin-bottom: 3em;
-}
-
-.category h2 {
-  text-align: center;
-  margin-bottom: 1em;
-}
-
 .gallery {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 1em;
+  gap: 10px;
 }
-
-.photo {
-  width: 300px;
-  text-align: center;
+.gallery-item {
+  width: 200px;
 }
-
-.photo img {
+.gallery-item img {
   width: 100%;
-  height: auto;
-  border: 1px solid #ccc;
 }
-
-.caption {
-  margin: 0.5em 0;
+form input, form textarea {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
 }
-
-a {
-  background: black;
-  color: white;
-  padding: 0.5em 1em;
-  text-decoration: none;
-  display: inline-block;
-  margin-top: 0.5em;
-}
-
-.sold {
-  color: red;
-  font-weight: bold;
-}
-
-.contact {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-form {
+.store {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 10px;
 }
-
-label {
-  margin-top: 1em;
+.store-item {
+  width: 200px;
 }
-
-input, textarea {
-  padding: 0.5em;
-  font-size: 1em;
-  margin-top: 0.5em;
-}
-
-button {
-  margin-top: 1em;
-  padding: 0.7em;
-  background-color: #222;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-.shipping {
-  max-width: 600px;
-  margin: 2em auto;
-}
-
-.shipping form {
-  display: flex;
-  flex-direction: column;
-}
-
-.shipping select, .shipping input {
-  padding: 0.5em;
-  font-size: 1em;
-  margin-top: 0.5em;
-}
-
-.shipping p {
-  font-weight: bold;
-  margin-top: 1em;
-}
-
-.gallery .photo {
-  display: inline-block;
-  margin: 1em;
-  width: 280px;
+.store-item img {
+  width: 100%;
 }
