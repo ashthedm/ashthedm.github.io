@@ -1,9 +1,109 @@
-<!DOCTYPE html>
+
+       <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Store</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Cart sidebar styles */
+    #cartSidebar {
+      position: fixed;
+      right: 0; top: 0;
+      width: 320px;
+      height: 100vh;
+      background: #f4f4f4;
+      box-shadow: -2px 0 5px rgba(0,0,0,0.3);
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      padding: 1rem;
+      overflow-y: auto;
+      z-index: 1000;
+    }
+    #cartSidebar.open {
+      transform: translateX(0);
+    }
+    #cartToggle {
+      position: fixed;
+      right: 10px; top: 10px;
+      background: #222;
+      color: white;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      z-index: 1001;
+      border: none;
+      border-radius: 4px;
+    }
+    #cartItems {
+      margin-top: 1rem;
+    }
+    .cart-item {
+      border-bottom: 1px solid #ddd;
+      padding: 0.5rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .cart-item img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .cart-item-details {
+      flex-grow: 1;
+    }
+    .cart-item-title {
+      font-weight: bold;
+      margin-bottom: 0.2rem;
+    }
+    .cart-item-quantity {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      margin-top: 0.3rem;
+    }
+    .cart-item-quantity button {
+      width: 24px;
+      height: 24px;
+      background: #555;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+    .cart-item-quantity span {
+      min-width: 20px;
+      text-align: center;
+      display: inline-block;
+    }
+    .cart-item-remove {
+      margin-left: 0.5rem;
+      background: #c33;
+      color: white;
+      border: none;
+      padding: 0.2rem 0.5rem;
+      cursor: pointer;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+    #cartTotal {
+      font-weight: bold;
+      margin-top: 1rem;
+      font-size: 1.1rem;
+    }
+    #checkoutBtn {
+      margin-top: 1rem;
+      padding: 0.6rem 1rem;
+      background: #222;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -14,12 +114,115 @@
       <a href="contact.html">Contact</a>
     </nav>
   </header>
+
+  <button id="cartToggle">Cart (0)</button>
+
+  <div id="cartSidebar" aria-label="Shopping Cart">
+    <h3>Your Cart</h3>
+    <div id="cartItems"></div>
+    <div id="cartTotal"></div>
+    <button id="checkoutBtn">Checkout</button>
+  </div>
+
   <main>
     <h2>Shop Prints</h2>
     <div id="store" class="store"></div>
   </main>
+
   <script src="store/storeData.js"></script>
   <script>
+    const cartToggle = document.getElementById('cartToggle');
+    const cartSidebar = document.getElementById('cartSidebar');
+    const cartItemsDiv = document.getElementById('cartItems');
+    const cartTotalDiv = document.getElementById('cartTotal');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    function saveCart() {
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+    }
+
+    function renderCart() {
+      cartItemsDiv.innerHTML = '';
+
+      if (cart.length === 0) {
+        cartItemsDiv.innerHTML = '<p>Your cart is empty.</p>';
+        cartTotalDiv.textContent = '';
+        checkoutBtn.style.display = 'none';
+        cartToggle.textContent = 'Cart (0)';
+        return;
+      }
+      checkoutBtn.style.display = 'block';
+
+      cart.forEach((item, index) => {
+        const div = document.createElement('div');
+        div.className = 'cart-item';
+
+        div.innerHTML = `
+          <img src="${item.image}" alt="${item.title}" />
+          <div class="cart-item-details">
+            <div class="cart-item-title">${item.title}</div>
+            <div class="cart-item-quantity">
+              <button onclick="changeQuantity(${index}, -1)" aria-label="Decrease quantity">−</button>
+              <span>${item.quantity}</span>
+              <button onclick="changeQuantity(${index}, 1)" aria-label="Increase quantity">+</button>
+            </div>
+            <div>Price: $${(item.price * item.quantity).toFixed(2)}</div>
+          </div>
+          <button class="cart-item-remove" onclick="removeFromCart(${index})" aria-label="Remove item">&times;</button>
+        `;
+        cartItemsDiv.appendChild(div);
+      });
+
+      const total = cart.reduce((sum, item) => sum + parseFloat(item.price) * item.quantity, 0);
+      cartTotalDiv.textContent = `Total: $${total.toFixed(2)}`;
+
+      cartToggle.textContent = `Cart (${cart.reduce((sum, i) => sum + i.quantity, 0)})`;
+    }
+
+    function addToCart(item) {
+      const found = cart.find(i => i.title === item.title);
+      if (found) {
+        found.quantity++;
+      } else {
+        cart.push({...item, quantity: 1});
+      }
+      saveCart();
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      saveCart();
+    }
+
+    function changeQuantity(index, delta) {
+      const item = cart[index];
+      if (!item) return;
+      item.quantity += delta;
+      if (item.quantity < 1) {
+        cart.splice(index, 1);
+      }
+      saveCart();
+    }
+
+    cartToggle.addEventListener('click', () => {
+      cartSidebar.classList.toggle('open');
+    });
+
+    checkoutBtn.addEventListener('click', () => {
+      if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+      }
+      // Opens each Payhip link in a new tab — user checks out per product.
+      cart.forEach(item => {
+        window.open(item.buyLink, '_blank');
+      });
+    });
+
+    // Render store items with Add to Cart button
     const container = document.getElementById("store");
     storeItems.forEach(item => {
       const div = document.createElement("div");
@@ -29,11 +232,24 @@
         <h3>${item.title}</h3>
         <p>${item.description}</p>
         <strong>$${item.price}</strong><br>
-        <a href="${item.buyLink}" target="_blank">Buy on Payhip</a>
+        <button>Add to Cart</button>
       `;
+      const btn = div.querySelector('button');
+      btn.addEventListener('click', () => {
+        addToCart(item);
+        alert(`Added "${item.title}" to cart.`);
+      });
       container.appendChild(div);
     });
+
+    // Initial render
+    renderCart();
+
+    // Make cart functions globally accessible for inline onclick handlers
+    window.changeQuantity = changeQuantity;
+    window.removeFromCart = removeFromCart;
   </script>
+
   <footer>&copy; 2025 Ash Tower</footer>
 </body>
 </html>
