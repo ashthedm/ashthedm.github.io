@@ -1,0 +1,124 @@
+
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #fefefe;
+  color: #111;
+}
+
+header {
+  padding: 1em;
+  text-align: center;
+  background: #eee;
+}
+
+.status {
+  font-weight: bold;
+  color: green;
+}
+
+main {
+  padding: 1em;
+}
+
+.category {
+  margin-bottom: 3em;
+}
+
+.category h2 {
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1em;
+}
+
+.photo {
+  width: 300px;
+  text-align: center;
+}
+
+.photo img {
+  width: 100%;
+  height: auto;
+  border: 1px solid #ccc;
+}
+
+.caption {
+  margin: 0.5em 0;
+}
+
+a {
+  background: black;
+  color: white;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 0.5em;
+}
+
+.sold {
+  color: red;
+  font-weight: bold;
+}
+
+.contact {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-top: 1em;
+}
+
+input, textarea {
+  padding: 0.5em;
+  font-size: 1em;
+  margin-top: 0.5em;
+}
+
+button {
+  margin-top: 1em;
+  padding: 0.7em;
+  background-color: #222;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.shipping {
+  max-width: 600px;
+  margin: 2em auto;
+}
+
+.shipping form {
+  display: flex;
+  flex-direction: column;
+}
+
+.shipping select, .shipping input {
+  padding: 0.5em;
+  font-size: 1em;
+  margin-top: 0.5em;
+}
+
+.shipping p {
+  font-weight: bold;
+  margin-top: 1em;
+}
+
+.gallery .photo {
+  display: inline-block;
+  margin: 1em;
+  width: 280px;
+}
